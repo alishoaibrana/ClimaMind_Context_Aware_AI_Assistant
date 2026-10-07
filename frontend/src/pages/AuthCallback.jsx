@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getMe } from '../services/api';
 
-const API_BASE = 'http://localhost:8000';
-
 /**
  * AuthCallback — mounted at the virtual route /auth/callback
  *

@@ -37,6 +37,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from auth import create_access_token, get_current_user, oauth
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from config import (
+    ALLOWED_ORIGINS,
     FRONTEND_URL,
     GOOGLE_REDIRECT_URI,
     GROQ_API_KEY,
@@ -67,14 +68,16 @@ app = FastAPI(
 # SessionMiddleware MUST come before CORSMiddleware — Authlib requires it.
 app.add_middleware(SessionMiddleware, secret_key=SESSION_SECRET_KEY)
 
+# Local dev origins always permitted; production Vercel URL added via ALLOWED_ORIGINS env var.
+_LOCAL_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:8000",
-    ],
+    allow_origins=_LOCAL_ORIGINS + ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

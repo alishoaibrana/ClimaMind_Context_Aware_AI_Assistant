@@ -41,3 +41,11 @@ FRONTEND_URL: str = os.getenv(
     "http://localhost:5173",
 )
 
+# ─── CORS Allowed Origins ─────────────────────────────────────────────────────
+# Comma-separated list of production origins, e.g.:
+#   ALLOWED_ORIGINS=https://climamind.vercel.app
+# Leave empty for local development — local origins are always included in main.py.
+ALLOWED_ORIGINS: list[str] = [
+    o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()
+]
+
