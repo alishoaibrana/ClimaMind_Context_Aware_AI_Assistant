@@ -83,6 +83,48 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---
 
+## ☁️ Production Deployment (Render + Vercel)
+
+The backend is hosted on Render and the Vite frontend on Vercel. Use the same GitHub repository for both services.
+
+### 1. Create the production database and backend on Render
+
+1. Push the latest code to GitHub.
+2. In Render, create a PostgreSQL database and a Web Service connected to this repository.
+3. Set the Web Service **Root Directory** to `backend`, the **Build Command** to `pip install -r requirements.txt`, and the **Start Command** to `uvicorn main:app --host 0.0.0.0 --port $PORT`.
+4. Add these environment variables to the backend service:
+
+   | Variable | Value |
+   | :--- | :--- |
+   | `DATABASE_URL` | Internal connection URL for the Render PostgreSQL database |
+   | `GROQ_API_KEY` | Your Groq API key |
+   | `GOOGLE_CLIENT_ID` | OAuth client ID from Google Cloud |
+   | `GOOGLE_CLIENT_SECRET` | OAuth client secret from Google Cloud |
+   | `GOOGLE_REDIRECT_URI` | `https://YOUR-RENDER-SERVICE.onrender.com/auth/google/callback` |
+   | `JWT_SECRET` | A long, random production secret |
+   | `SESSION_SECRET_KEY` | A separate long, random production secret |
+   | `FRONTEND_URL` | `https://YOUR-VERCEL-DOMAIN` |
+   | `ALLOWED_ORIGINS` | `https://YOUR-VERCEL-DOMAIN` |
+
+   Replace the example domains with the actual service URLs. Do not include a trailing slash in `FRONTEND_URL` or `ALLOWED_ORIGINS`. Keep secrets out of GitHub.
+
+### 2. Configure Google OAuth
+
+In the Google Cloud OAuth client settings, add the Vercel domain to **Authorized JavaScript origins** and the Render callback URL above to **Authorized redirect URIs**. The redirect URI must exactly match `GOOGLE_REDIRECT_URI` in Render.
+
+### 3. Deploy the frontend on Vercel
+
+1. Import the same GitHub repository into Vercel and set **Root Directory** to `frontend`.
+2. Use `npm run build` as the build command and `dist` as the output directory.
+3. Add the environment variable `VITE_API_URL` with the public Render backend URL, for example `https://YOUR-RENDER-SERVICE.onrender.com`.
+4. Deploy, then update Render's `FRONTEND_URL` and `ALLOWED_ORIGINS` with the actual Vercel domain and redeploy the backend if needed.
+
+The frontend includes a Vercel rewrite for the `/auth/callback` route used by Google sign-in. Verify the backend at `https://YOUR-RENDER-SERVICE.onrender.com/health`, then test Google sign-in and a chat request on the Vercel site.
+
+Uploaded document indexes and chat working state are held in backend memory, so a backend restart or redeploy clears that transient state. Chat records and user accounts are stored in PostgreSQL.
+
+---
+
 ## 🔑 Environment Configuration (`backend/.env`)
 
 | Variable | Description |
