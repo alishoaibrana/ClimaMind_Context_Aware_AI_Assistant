@@ -1,4 +1,4 @@
-# 🌍 ClimaMind — RAG AI Chatbot with Voice & Document Search
+#   ClimaMind Context Aware AI Assistant
 
 A full-stack, context-aware Retrieval-Augmented Generation (RAG) AI assistant built with **FastAPI**, **LangChain**, **Groq LLMs**, **FAISS**, and **React (Vite + Tailwind CSS)**.
 
@@ -6,18 +6,18 @@ Features real-time document search, Google OAuth 2.0 multi-user authentication, 
 
 ---
 
-## ✨ Features
+##  Features
 
-- 🧠 **Context-Aware RAG Pipeline**: Powered by LangChain, Groq LLM, and FAISS vector embeddings with history-aware query reformulation.
-- 📄 **Multi-Format Document Ingestion**: Upload PDF, DOCX, TXT, XLSX, and CSV documents to index and chat with custom files dynamically.
-- 🎙️ **Voice Speech-to-Text**: Real-time microphone audio recording with instant transcription powered by **Groq Whisper Large v3 Turbo**.
-- 🔐 **Google OAuth 2.0 Authentication**: Secure sign-in with JWT token exchange and user-isolated data.
-- 💾 **Permanent SQLite Storage**: Chat sessions, message history, and user metadata are saved permanently in local SQLite (`rag_chatbot.db`).
-- 🎨 **Modern Sleek UI**: Built with React, Tailwind CSS, Lucide icons, glassmorphism, and responsive design.
+-  **Context-Aware RAG Pipeline**: Powered by LangChain, Groq LLM, and FAISS vector embeddings with history-aware query reformulation.
+-  **Multi-Format Document Ingestion**: Upload PDF, DOCX, TXT, XLSX, and CSV documents to index and chat with custom files dynamically.
+-  **Voice Speech-to-Text**: Real-time microphone audio recording with instant transcription powered by **Groq Whisper Large v3 Turbo**.
+-  **Google OAuth 2.0 Authentication**: Secure sign-in with JWT token exchange and user-isolated data.
+-  **Permanent SQLite Storage**: Chat sessions, message history, and user metadata are saved permanently in local SQLite (`rag_chatbot.db`).
+-  **Modern Sleek UI**: Built with React, Tailwind CSS, Lucide icons, glassmorphism, and responsive design.
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 RAG-Chatbot-LangChain/
@@ -43,7 +43,7 @@ RAG-Chatbot-LangChain/
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 1. Backend Setup
 
@@ -125,7 +125,7 @@ Uploaded document indexes and chat working state are held in backend memory, so 
 
 ---
 
-## 🔑 Environment Configuration (`backend/.env`)
+## Environment Configuration (`backend/.env`)
 
 | Variable | Description |
 | :--- | :--- |
@@ -139,5 +139,5 @@ Uploaded document indexes and chat working state are held in backend memory, so 
 
 ---
 
-## 🛡️ License
+## License
 MIT License.
